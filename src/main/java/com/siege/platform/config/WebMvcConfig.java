@@ -34,5 +34,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
         String absolutePath = uploadDir.toURI().toString();
         registry.addResourceHandler("/uploads/**")
                 .addResourceLocations(absolutePath, "file:uploads/", "file:./uploads/");
+                
+        // Serve frontend static files
+        registry.addResourceHandler("/**")
+                .addResourceLocations("file:./frontend-app/");
     }
 }
