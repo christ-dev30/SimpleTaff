@@ -1,0 +1,1 @@
+package com.siege.platform; import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder; public class GenerateHash { public static void main(String[] args) { System.out.println("HASH_RESULT: " + new BCryptPasswordEncoder().encode("Admin123!")); } }
