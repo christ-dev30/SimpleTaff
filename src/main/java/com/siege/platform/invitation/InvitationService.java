@@ -117,73 +117,75 @@ public class InvitationService {
     }
 
     private void envoyerEmailInvitation(String destinataire, String nomEntreprise, String lien, String formule) {
-        try {
-            MimeMessage message = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
-            
-            helper.setFrom("SimpleTaff <juniorehui15@gmail.com>");
-            helper.setTo(destinataire);
-            helper.setSubject("Activez votre espace SimpleTaff - " + nomEntreprise);
-            
-            String htmlContent = "<!DOCTYPE html>"
-                + "<html>"
-                + "<head>"
-                + "  <meta charset='utf-8'>"
-                + "  <meta name='viewport' content='width=device-width, initial-scale=1.0'>"
-                + "  <style>"
-                + "    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f8fafc; color: #1e293b; margin: 0; padding: 0; }"
-                + "    .container { max-width: 600px; margin: 40px auto; background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }"
-                + "    .header { background: linear-gradient(135deg, #4f46e5, #0284c7); padding: 32px; text-align: center; }"
-                + "    .header h1 { color: #ffffff; margin: 0; font-size: 24px; font-weight: 800; }"
-                + "    .content { padding: 40px 32px; line-height: 1.6; font-size: 15px; }"
-                + "    .welcome { font-size: 18px; font-weight: 700; color: #0f172a; margin-top: 0; margin-bottom: 16px; }"
-                + "    .badge-container { margin: 24px 0; padding: 16px; background-color: #f1f5f9; border-radius: 12px; border: 1px solid #e2e8f0; }"
-                + "    .cta-container { text-align: center; margin: 32px 0 24px; }"
-                + "    .cta-button { display: inline-block; background: linear-gradient(135deg, #4f46e5, #0284c7); color: #ffffff !important; text-decoration: none; padding: 14px 32px; font-size: 15px; font-weight: 700; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3); }"
-                + "    .warning { font-size: 13px; color: #b45309; background-color: #fef3c7; border: 1px solid #fde68a; padding: 14px; border-radius: 10px; margin-top: 24px; }"
-                + "    .footer { background-color: #f8fafc; padding: 24px 32px; text-align: center; font-size: 12px; color: #64748b; border-top: 1px solid #f1f5f9; }"
-                + "  </style>"
-                + "</head>"
-                + "<body>"
-                + "  <div class='container'>"
-                + "    <div class='header'>"
-                + "      <h1>SimpleTaff</h1>"
-                + "    </div>"
-                + "    <div class='content'>"
-                + "      <p class='welcome'>Bonjour,</p>"
-                + "      <p>Le Super Administrateur de <strong>SimpleTaff</strong> vous invite à activer l'espace de votre entreprise pour commencer la gestion simplifiée de votre main-d'œuvre.</p>"
-                + "      <div class='badge-container'>"
-                + "        <table style='width:100%; border-collapse:collapse;'>"
-                + "          <tr>"
-                + "            <td style='padding:4px 0; color:#64748b; font-weight:500;'>Entreprise :</td>"
-                + "            <td style='padding:4px 0; color:#0f172a; font-weight:700; text-align:right;'>" + nomEntreprise + "</td>"
-                + "          </tr>"
-                + "          <tr>"
-                + "            <td style='padding:4px 0; color:#64748b; font-weight:500;'>Formule d'abonnement :</td>"
-                + "            <td style='padding:4px 0; color:#0f172a; font-weight:700; text-align:right;'><span style='background-color:#4f46e5; color:#ffffff; padding:2px 8px; border-radius:100px; font-size:12px;'>" + formule + "</span></td>"
-                + "          </tr>"
-                + "        </table>"
-                + "      </div>"
-                + "      <p>Pour configurer votre compte administrateur et activer votre espace, cliquez sur le bouton ci-dessous :</p>"
-                + "      <div class='cta-container'>"
-                + "        <a href='" + lien + "' class='cta-button'>Activer mon espace entreprise</a>"
-                + "      </div>"
-                + "      <div class='warning'>"
-                + "        <strong>Note importante :</strong> Ce lien d'activation est à usage unique et expire dans 30 minutes."
-                + "      </div>"
-                + "    </div>"
-                + "    <div class='footer'>"
-                + "      <p>Cet e-mail est automatique, merci de ne pas y répondre.</p>"
-                + "      <p>© 2026 SimpleTaff. Tous droits réservés.</p>"
-                + "    </div>"
-                + "  </div>"
-                + "</body>"
-                + "</html>";
+        new Thread(() -> {
+            try {
+                MimeMessage message = mailSender.createMimeMessage();
+                MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+                
+                helper.setFrom("SimpleTaff <juniorehui15@gmail.com>");
+                helper.setTo(destinataire);
+                helper.setSubject("Activez votre espace SimpleTaff - " + nomEntreprise);
+                
+                String htmlContent = "<!DOCTYPE html>"
+                    + "<html>"
+                    + "<head>"
+                    + "  <meta charset='utf-8'>"
+                    + "  <meta name='viewport' content='width=device-width, initial-scale=1.0'>"
+                    + "  <style>"
+                    + "    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f8fafc; color: #1e293b; margin: 0; padding: 0; }"
+                    + "    .container { max-width: 600px; margin: 40px auto; background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }"
+                    + "    .header { background: linear-gradient(135deg, #4f46e5, #0284c7); padding: 32px; text-align: center; }"
+                    + "    .header h1 { color: #ffffff; margin: 0; font-size: 24px; font-weight: 800; }"
+                    + "    .content { padding: 40px 32px; line-height: 1.6; font-size: 15px; }"
+                    + "    .welcome { font-size: 18px; font-weight: 700; color: #0f172a; margin-top: 0; margin-bottom: 16px; }"
+                    + "    .badge-container { margin: 24px 0; padding: 16px; background-color: #f1f5f9; border-radius: 12px; border: 1px solid #e2e8f0; }"
+                    + "    .cta-container { text-align: center; margin: 32px 0 24px; }"
+                    + "    .cta-button { display: inline-block; background: linear-gradient(135deg, #4f46e5, #0284c7); color: #ffffff !important; text-decoration: none; padding: 14px 32px; font-size: 15px; font-weight: 700; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3); }"
+                    + "    .warning { font-size: 13px; color: #b45309; background-color: #fef3c7; border: 1px solid #fde68a; padding: 14px; border-radius: 10px; margin-top: 24px; }"
+                    + "    .footer { background-color: #f8fafc; padding: 24px 32px; text-align: center; font-size: 12px; color: #64748b; border-top: 1px solid #f1f5f9; }"
+                    + "  </style>"
+                    + "</head>"
+                    + "<body>"
+                    + "  <div class='container'>"
+                    + "    <div class='header'>"
+                    + "      <h1>SimpleTaff</h1>"
+                    + "    </div>"
+                    + "    <div class='content'>"
+                    + "      <p class='welcome'>Bonjour,</p>"
+                    + "      <p>Le Super Administrateur de <strong>SimpleTaff</strong> vous invite à activer l'espace de votre entreprise pour commencer la gestion simplifiée de votre main-d'œuvre.</p>"
+                    + "      <div class='badge-container'>"
+                    + "        <table style='width:100%; border-collapse:collapse;'>"
+                    + "          <tr>"
+                    + "            <td style='padding:4px 0; color:#64748b; font-weight:500;'>Entreprise :</td>"
+                    + "            <td style='padding:4px 0; color:#0f172a; font-weight:700; text-align:right;'>" + nomEntreprise + "</td>"
+                    + "          </tr>"
+                    + "          <tr>"
+                    + "            <td style='padding:4px 0; color:#64748b; font-weight:500;'>Formule d'abonnement :</td>"
+                    + "            <td style='padding:4px 0; color:#0f172a; font-weight:700; text-align:right;'><span style='background-color:#4f46e5; color:#ffffff; padding:2px 8px; border-radius:100px; font-size:12px;'>" + formule + "</span></td>"
+                    + "          </tr>"
+                    + "        </table>"
+                    + "      </div>"
+                    + "      <p>Pour configurer votre compte administrateur et activer votre espace, cliquez sur le bouton ci-dessous :</p>"
+                    + "      <div class='cta-container'>"
+                    + "        <a href='" + lien + "' class='cta-button'>Activer mon espace entreprise</a>"
+                    + "      </div>"
+                    + "      <div class='warning'>"
+                    + "        <strong>Note importante :</strong> Ce lien d'activation est à usage unique et expire dans 30 minutes."
+                    + "      </div>"
+                    + "    </div>"
+                    + "    <div class='footer'>"
+                    + "      <p>Cet e-mail est automatique, merci de ne pas y répondre.</p>"
+                    + "      <p>© 2026 SimpleTaff. Tous droits réservés.</p>"
+                    + "    </div>"
+                    + "  </div>"
+                    + "</body>"
+                    + "</html>";
 
-            helper.setText(htmlContent, true);
-            mailSender.send(message);
-        } catch (Exception e) {
-            System.err.println("[InvitationService] Erreur envoi email HTML: " + e.getMessage());
-        }
+                helper.setText(htmlContent, true);
+                mailSender.send(message);
+            } catch (Exception e) {
+                System.err.println("[InvitationService] Erreur envoi email HTML: " + e.getMessage());
+            }
+        }).start();
     }
 }
