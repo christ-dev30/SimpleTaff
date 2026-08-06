@@ -67,7 +67,7 @@ public class InvitationService {
         InvitationEntreprise savedInvitation = invitationRepository.save(invitation);
 
         // Envoyer l'email
-        String lien = "http://localhost:8080/vitrine/inscription.html?token=" + token;
+        String lien = "https://simpletaff-production.up.railway.app/vitrine/inscription.html?token=" + token;
         envoyerEmailInvitation(emailDestinataire, nomEntreprise, lien, savedEntreprise.getFormuleAbonnement().name());
 
         return savedInvitation;
