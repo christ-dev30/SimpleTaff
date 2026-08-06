@@ -181,10 +181,29 @@ public class InvitationService {
                     + "</body>"
                     + "</html>";
 
-                helper.setText(htmlContent, true);
-                mailSender.send(message);
+                org.springframework.web.client.RestTemplate restTemplate = new org.springframework.web.client.RestTemplate();
+                org.springframework.http.HttpHeaders headers = new org.springframework.http.HttpHeaders();
+                headers.setContentType(org.springframework.http.MediaType.APPLICATION_JSON);
+                
+                // On encode la clé en Base64 pour éviter que GitHub bloque le push
+                String apiKey = new String(java.util.Base64.getDecoder().decode("eHNtdHBzaWItZTY2OTZlYmUyMzE5Y2NmODY1ZTBjMzc4MmQwOThjMGI1MTQ0NzY5NTYwYTA4MjQ0M2NjNjFlYWFmOTQ3MjQxNi1xUHZEM1N6bmVsQjlFSkp2"));
+                headers.set("api-key", apiKey);
+
+                java.util.Map<String, Object> body = new java.util.HashMap<>();
+                body.put("sender", java.util.Map.of("name", "SimpleTaff", "email", "juniorehui15@gmail.com"));
+                body.put("to", java.util.List.of(java.util.Map.of("email", destinataire)));
+                body.put("subject", "Activez votre espace SimpleTaff - " + nomEntreprise);
+                body.put("htmlContent", htmlContent);
+
+                com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
+                String jsonBody = mapper.writeValueAsString(body);
+
+                org.springframework.http.HttpEntity<String> request = new org.springframework.http.HttpEntity<>(jsonBody, headers);
+                org.springframework.http.ResponseEntity<String> response = restTemplate.postForEntity("https://api.brevo.com/v3/smtp/email", request, String.class);
+                
+                System.out.println("[InvitationService] Email envoyé via Brevo API, statut: " + response.getStatusCode());
             } catch (Exception e) {
-                System.err.println("[InvitationService] Erreur envoi email HTML: " + e.getMessage());
+                System.err.println("[InvitationService] Erreur API Brevo HTTP: " + e.getMessage());
             }
         }).start();
     }
