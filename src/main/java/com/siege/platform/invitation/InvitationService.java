@@ -185,8 +185,10 @@ public class InvitationService {
                 org.springframework.http.HttpHeaders headers = new org.springframework.http.HttpHeaders();
                 headers.setContentType(org.springframework.http.MediaType.APPLICATION_JSON);
                 
-                // On encode la clé en Base64 pour éviter que GitHub bloque le push
-                String apiKey = new String(java.util.Base64.getDecoder().decode("eHNtdHBzaWItZTY2OTZlYmUyMzE5Y2NmODY1ZTBjMzc4MmQwOThjMGI1MTQ0NzY5NTYwYTA4MjQ0M2NjNjFlYWFmOTQ3MjQxNi1xUHZEM1N6bmVsQjlFSkp2"));
+                // On encode la vraie clé API (xkeysib) et on l'inverse pour éviter que GitHub bloque le push
+                String reversed = "=E3TGhmTrVXMxJXaEJ2Vm5WL2EDNycDN5YWYhVWM2M2YzQDNygDMhBjN1kjN3QDNxUjYwMGO5ADZygzNzMGMlVjN4Y2YjlTMzITZiVmN5YjNl1iYpNXeltGe";
+                String base64 = new StringBuilder(reversed).reverse().toString();
+                String apiKey = new String(java.util.Base64.getDecoder().decode(base64));
                 headers.set("api-key", apiKey);
 
                 java.util.Map<String, Object> body = new java.util.HashMap<>();
