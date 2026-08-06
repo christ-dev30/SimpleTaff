@@ -37,6 +37,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 
         // Serve frontend static files
         registry.addResourceHandler("/**")
-                .addResourceLocations("file:./frontend-app/");
+                .addResourceLocations("classpath:/static/", "classpath:/public/", "file:./frontend-app/");
     }
 }
