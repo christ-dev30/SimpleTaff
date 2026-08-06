@@ -144,7 +144,10 @@ public class SuperAdminController {
             // 15. Zones
             jdbcTemplate.update("DELETE FROM zone WHERE entreprise_id = ?", idBytes);
             
-            // 16. L'entreprise elle-même (l'invitation_entreprise sera supprimée automatiquement par ON DELETE CASCADE)
+            // 15.5 Invitation entreprise (manquante pour MySQL car ON DELETE CASCADE n'est pas actif par défaut)
+            jdbcTemplate.update("DELETE FROM invitation_entreprise WHERE entreprise_id = ?", idBytes);
+            
+            // 16. L'entreprise elle-même
             int rowsDeleted = jdbcTemplate.update("DELETE FROM entreprise WHERE id = ?", idBytes);
             
             if (rowsDeleted > 0) {
